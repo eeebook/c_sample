@@ -6,6 +6,7 @@ int main()
 
     printf("次の変更です\n");
 
+    printf("branchを作りました\n");
 
     return 0;
 
