@@ -1,0 +1,56 @@
+makeの基本makefile
+
+#コメント
+CC = gcc
+CFLAGS = -Wall -g -std=c99
+LDFLAGS = -lm
+
+circle : circle.o circluararea.o
+    $(CC) $(LDFLAGS) -o $@ $^
+
+circle.o: circle.c
+    $(CC) $(CFLAGS) -o $@ -c $<
+
+circulararea.o: circulararea.c
+    $(CC) $(CFLAGS) -o $@ -c $<
+
+#ターゲット:前提条件     前提条件よりもターゲットの更新が古ければコマンドを実行する
+#   コマンド
+# $@:ターゲット  $^:前提条件が複数の場合  $<:前提条件が1つの場合
+
+#コマンドはタグ改行で複数実行できる
+#しかし各業違うシェルで実行するので、別のディレクトリに移動したあとコマンドを
+#実行したいときなどは:で区切って1行にするか:\で2行で書いても良い
+
+#最後の2つのルールは以下のようにまとめることができる  %はワイルドカード
+circlulararea.o circle.o: %.o: %.c
+    $(CC) $(CFLAGS) -o $@ -c $<
+    
+#makeの組み込みルールを使えば次のようになる
+CC = gcc
+CFLAGS = -Wall -std=c99
+OBJS - circlle.o circularare.o
+
+circle: $(OBJS) -lm
+
+#-nは実際に実行しないで結果だけ出力する  -pは組み込みルールを翻訳して出力する
+
+#2重コロンルール
+CC = gcc
+RM = rm -f
+CFLAGS = -Wall -std=c99
+DBGFLAGS = -ggdb -pb
+DEBUGFILE = ./debug
+SRC = circle.c circulararea.c
+
+circle :: $(SRC)
+    $(CC) $(CFLAGS) -o $@ -lm $^
+
+circle :: $(DEBUGFILE)
+    $(CC) $(CFLAGS) $(DBGFLAGS)-o $@ -lm $(SRC)
+
+.PHONY : clean
+clean :
+    $(RM) circle
+    
+#cleanの前提条件があればそのclean行を実行する どちらも合致すれば先に書かれている方を実行
