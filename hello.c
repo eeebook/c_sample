@@ -8,6 +8,8 @@ int main()
 
     printf("branchを作りました\n");
 
+    printf("branchで変更して、githubに送信\n");
+    
     return 0;
 
 }
