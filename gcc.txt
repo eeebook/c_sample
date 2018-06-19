@@ -1,0 +1,29 @@
+gcc -shared -o libcirculararea.so circulararea.o
+共有ライブラリ作成 libcirculararea.soを作成
+gcc -o circle circle.o libcirculararea.so
+共有ライブラリを動的にリンクする
+ライブラリを/usr/shareにおくかLIB_PATHなど環境変数を設定する
+
+すべての中間出力ファイルを一度に作成する
+-SAVE-TEMPS
+
+gcc -E　-C
+プリプロセッサ出力
+コメント付き
+
+
+gcc -S -fverbose-asm
+アセンブリ言語出力
+c変数名をコメントにつける
+
+gcc -c 
+オブジェクトファイルを作成
+
+gcc -v -o circle -Wa,-as=circle.sym,-L circle.c
+-Waのあとは空白を入れない
+-Wa, アセンブラにコマンドラインオプションを渡す
+-as... モジュールのシンボルテーブルをcircle.symに出力する
+-L C識別子をシンボルテーブルに含める
+-v コンパイラが各段階で使ったオプションを表示する
+
+
