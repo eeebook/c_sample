@@ -2,7 +2,8 @@ gcc -shared -o libcirculararea.so circulararea.o
 共有ライブラリ作成 libcirculararea.soを作成
 gcc -o circle circle.o libcirculararea.so
 共有ライブラリを動的にリンクする
-ライブラリを/usr/shareにおくかLIB_PATHなど環境変数を設定する
+ライブラリを/usr/shareにおくかLIBARY_PATHなど環境変数を設定する
+共有ライブラリを使用しない時は-static
 
 すべての中間出力ファイルを一度に作成する
 -SAVE-TEMPS
@@ -26,4 +27,19 @@ gcc -v -o circle -Wa,-as=circle.sym,-L circle.c
 -L C識別子をシンボルテーブルに含める
 -v コンパイラが各段階で使ったオプションを表示する
 
+-Wall 警告してもエラーがない限りコンパイルはできる
+-Werror エラーを発見しコンパイルしない
+
+アーキテクチャ(マシン)最適化
+-march=athlon-4
+-mcpu=cpu
+-mtune=cpu
+
+-eenrorypointname
+entrypointname関数からプログラムを開始する
+
+Lディレクトリ名
+ディレクトリからライブラリファイルを探す
+
+-w すべての警告を無効にする
 
